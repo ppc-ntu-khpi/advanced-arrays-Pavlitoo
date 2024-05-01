@@ -1,15 +1,33 @@
+
 import java.util.Arrays;
 
+/**
+ * Клас для роботи з матрицями.
+ */
 public class Main {
 
-    public static void main(String[] args) {
-        int [][] matrix = new int[3][3];
-        int x=0;
+    /**
+     * Створює нову матрицю, де останній стовпець містить суми елементів рядків вихідної матриці.
+     *
+     * @param matrix Вхідна матриця розміру N x M.
+     * @return Нова матриця, де останній стовпець містить суми елементів рядків.
+     */
+    public static int[][] createNewMatrixWithRowSums(int[][] matrix) {
+        // Кількість рядків та стовпців у вихідній матриці
+        int rows = matrix.length;
+        int columns = matrix[0].length;
 
-        for(int[] row:matrix)
-            Arrays.fill(row,x);
+        // Створюємо нову матрицю з одним додатковим стовпцем
+        int[][] newMatrix = new int[rows][columns + 1];
 
-        for(int[] row:matrix)
-            System.out.println(Arrays.toString(row));
+        // Заповнюємо нову матрицю значеннями вихідної матриці і додаємо суми рядків
+        for (int i = 0; i < rows; i++) {
+            // Копіюємо елементи з вихідної матриці в нову
+            System.arraycopy(matrix[i], 0, newMatrix[i], 0, columns);
+            // Останній стовпець містить суму елементів рядка
+            newMatrix[i][columns] = Arrays.stream(matrix[i]).sum();
+        }
+
+        return newMatrix;
     }
 }
